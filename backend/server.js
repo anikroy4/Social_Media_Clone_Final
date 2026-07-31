@@ -3,6 +3,13 @@ dotenv.config();
 const express = require('express');
 const cors = require('cors');
 const router = require('./routes/index.js');
+const { connectDB } = require('./database/dbconfig.js');
+
+//database connection
+connectDB();
+
+
+
 
 
 const app = express();
