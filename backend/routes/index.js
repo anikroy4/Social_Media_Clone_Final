@@ -1,8 +1,12 @@
 const express = require('express');
-const router=express.Router();
-const api=require('./api');
+const router = express.Router();
+const api = require('./api');
+const dns = require('node:dns');
+dns.setDefaultResultOrder('ipv4first');
 
-const baseAPI=process.env.BASE_API_URL || '/api/v1';
+
+// || '/api/v1'
+const baseAPI=process.env.BASE_API_URL ;
 router.use(baseAPI, api);
 
 

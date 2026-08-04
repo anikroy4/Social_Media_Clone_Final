@@ -1,12 +1,8 @@
 const express = require('express');
 const router=express.Router();
+const {newUser}=require('../../controllers/userControllers');
 
 
-router.get('/',(req,res)=>{
-    res.send("Hello from auth ");
-    console.log('====================================');
-    console.log('API auth accessed');
-    console.log('====================================');
-})
+router.post('/',newUser);
 
-module.exports=router;
+module.exports= router;
