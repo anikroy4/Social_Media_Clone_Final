@@ -29,13 +29,14 @@ exports.validateUsername = async (username) => {
     do{
         let user = await User.findOne({username});
         if(user){
-            username += (+new Date()* Math.random()).toString().substring(0, 1);
+            username += (+new Date() * Math.random()).toString().substring(0, 1);
             istrue = true;  
         }else{
             istrue = false;
         }
 
     } while(istrue)
+
     return username;
 
 }

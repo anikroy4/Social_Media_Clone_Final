@@ -1,7 +1,8 @@
 const User = require('../models/userModel');
 const  {validateEmail,validateName, validatePassword, validateUsername}  = require('../helpers/validation');
-
+const {createToken} = require('../helpers/token');
 const bcrypt = require('bcrypt');   
+const { sendVerificationEmail } = require('../helpers/mailer');
 
 exports.newUser = async (req, res) => {
     try {
@@ -62,7 +63,7 @@ exports.newUser = async (req, res) => {
         //validate username
         let tempUsername = fName + lName;
 
-        let finalUsername = await validateUsername((tempUsername).toLowerCase());
+        let finalUserName = await validateUsername((tempUsername).toLowerCase());
 
 
 
@@ -70,7 +71,7 @@ exports.newUser = async (req, res) => {
         const user = await new User({
             fName,
             lName,
-            username: finalUsername,
+            username: finalUserName,
             email,
             password: crypted,
             bMonth,
@@ -80,8 +81,9 @@ exports.newUser = async (req, res) => {
             verified
         }).save();
 
-        res.send(user);
-
+        const token = createToken({id:user._id.toString()},'7d');
+        const url= `${process.env.BASE_URL}/activate/${token}`;
+        sendVerificationEmail(user.email, user.fName, url);
     }
     catch (err) {
         res.status(404).json({
