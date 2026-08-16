@@ -3,6 +3,7 @@ const  {validateEmail,validateName, validatePassword, validateUsername}  = requi
 const {createToken} = require('../helpers/token');
 const bcrypt = require('bcrypt');   
 const { sendVerificationEmail } = require('../helpers/mailer');
+const jwt = require('jsonwebtoken');
 
 exports.newUser = async (req, res) => {
     try {
@@ -65,8 +66,6 @@ exports.newUser = async (req, res) => {
 
         let finalUserName = await validateUsername((tempUsername).toLowerCase());
 
-
-
         
         const user = await new User({
             fName,
@@ -81,14 +80,56 @@ exports.newUser = async (req, res) => {
             verified
         }).save();
 
-        const token = createToken({id:user._id.toString()},'7d');
+        const token = createToken({id:user._id.toString()},'3d');
         const url= `${process.env.BASE_URL}/activate/${token}`;
+
         sendVerificationEmail(user.email, user.fName, url);
+
+        const tokens = createToken({id:user._id.toString()},'7d');
+
+        res.send({
+            id: user._id,
+            username: user.username,
+            profilePicture: user.profilePicture,
+            fName: user.fName,
+            lName: user.lName,
+            token: tokens,
+            verified: user.verified,
+            message: "Account has been created successfully, Please check your email to verify your account !"
+        });
     }
     catch (err) {
         res.status(404).json({
             message: "Error while creating user",
             error: err.message
+        });
+    }
+}
+
+exports.verifiedUser=async (req, res) => {
+    try{
+        const {token}=req.body;
+        const user=jwt.verify(token,process.env.SECRET_KEY);
+
+        const checkUser=await User.findById(user.id);  
+
+        if(checkUser.verified==true){
+            return res.status(400).json({
+                message: "This email is already verified !"
+            });
+        }
+        else{
+            await User.findByIdAndUpdate(user.id,{verified:true});
+            return res.status(200).json({
+                message: "Email has been verified successfully !"
+            });
+        }
+
+    }
+    catch(err){
+        res.status(404).json({
+            message: "Error while verifying user",
+            error: err.message 
         });
     }
 }

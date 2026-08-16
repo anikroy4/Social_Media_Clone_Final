@@ -19,7 +19,8 @@ exports.sendVerificationEmail =  (email, name, url) => {
     })
     const accessToken = auth.getAccessToken()
     
-    const smtpTransport = nodemailer.createTransport({
+    const smtpTransport = nodemailer.createTransport(
+    {
         service: 'gmail',
         auth: {
             type: 'OAuth2',
@@ -27,7 +28,7 @@ exports.sendVerificationEmail =  (email, name, url) => {
             clientId: MAILING_ID,
             clientSecret: MAILING_SECRET,
             refreshToken: MAILING_REFRESH_TOKEN,
-            accessToken: accessToken
+            accessToken
         }
     })
 
