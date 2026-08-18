@@ -1,15 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const RightAuth = () => {
+const RightAuth = ({ title, subtitle }) => {
     return (
         <>
             <section className="w-full rounded-2xl border border-gray-200 bg-white/80 p-6 md:p-8 shadow-lg backdrop-blur-xl">
                 <div className="mb-6">
                     <h2 className="text-2xl font-semibold text-slate-900">
-                        Welcome back
+                       {title}
                     </h2>
                     <p className="text-sm text-slate-500">
-                        Sign in to keep the conversation going.
+                        {subtitle}
                     </p>
                 </div>
                 <form className="grid gap-4">
