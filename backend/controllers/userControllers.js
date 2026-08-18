@@ -133,3 +133,42 @@ exports.verifiedUser=async (req, res) => {
         });
     }
 }
+
+exports.loginUser=async (req,res) => {
+    try{
+        const {email,password}=req.body;
+
+        const user=await User.findOne({email});
+        if(!user){
+            return res.status(400).json({
+                message: "User not found ! Please check your email and try again !",
+                error : err.message
+            });
+        }
+        const check= await bcrypt.compare(password,user.password);
+        if(!check){
+            return res.status(400).json({
+                message: "Invalid credentials . PLease try again !",
+                
+            });
+        }   
+        const token = createToken({id:user._id.toString()},'7d');
+
+        res.send({
+            id: user._id,
+            username: user.username,
+            profilePicture: user.profilePicture,
+            fName: user.fName,
+            lName: user.lName,
+            token: token,
+            verified: user.verified,
+            message: "Login successfullly"
+        });
+
+    }catch(err){  
+        res.status(404).json({
+            // message: "Error while logging in user",
+            error: err.message 
+        });
+    }
+}

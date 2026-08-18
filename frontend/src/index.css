@@ -1,1 +1,48 @@
 @import "tailwindcss";
+:root{
+    --screen-xs: 480px;
+    --screen-sm: 640px;
+    --screen-md: 768px;
+    --screen-lg: 1024px;
+    --screen-xl: 1280px;
+    --screen-2xl: 1536px;
+    --screen-3xl: 1920px;
+    --font-main: "Gilroy", "Manrope", "Segoe UI", sans-serif;
+    --surface: #f3f5f9;
+    --brand: #1877f2;
+    --brand-hover: #166fe0;
+    --slate-50: #f8fafc;
+    --slate-100: #f1f5f9;
+    --slate-200: #e2e8f0;
+    --slate-300: #cbd5e1;
+    --slate-400: #94a3b8;
+    --slate-500: #64748b;
+    --slate-700: #334155;
+    --slate-900: #0f172a;
+    --white: #ffffff;
+    --white-70: #ffffffb3;
+    --white-80: #ffffffcc;
+    --border-soft: var(--slate-200);
+    --border-mid: var(--slate-300);
+    --accent-glow: #6ee7b74d;
+    --accent-success: #10b981;
+    --shadow-brand-40: #3b82f666;
+    --text-muted: #475569;
+}
+
+body {
+    font-family: var(--font-main);
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+@layer utilities {
+    .text-muted {
+        color: var(--text-muted);
+    }
+}
