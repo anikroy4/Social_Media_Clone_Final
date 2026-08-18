@@ -10,5 +10,6 @@ export const signUpSchema = Yup.object({
   gender: Yup.string().required("Gender is required"),
   password: Yup.string().min(8).max(25).required("Password is required"),
 
+
 });
 
