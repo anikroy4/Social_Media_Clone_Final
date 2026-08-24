@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import {useFormik} from 'formik'
-import { signUpSchema } from '../../../validation'
+import { signUpSchema } from '../../../validation/validation'
+
 const initialState = {
     fName: '',
     lName: '',
@@ -21,10 +22,14 @@ const RegistrationForm = () => {
     const formik = useFormik({
         initialValues: initialState,
         validationSchema: signUpSchema,
-        onSubmit: (values) => {
-            console.log("Hello form formik", values) 
+        onSubmit: () => {
+            console.log('Form submitted with values:', formik.values); 
         }
-    })
+    });
+    const {errors}=formik;
+    console.log('====================================');
+    console.log(errors);    
+    console.log('====================================');
 
     return (
         <>
@@ -34,17 +39,20 @@ const RegistrationForm = () => {
                 <div className="mt-5 h-px bg-slate-200" />
 
                 <form className="mt-5 grid gap-4" onSubmit={formik.handleSubmit}>
-                    <div className="grid gap-3 sm:grid-cols-2">
+                    <div className="grid gap-3 sm:grid-cols-2 relative">
+                        
                         <input
+                        className={`h-12 rounded-xl border ${errors.fName ? 'border-red-500  mb-3' : 'border-gray-300'} bg-slate-50 px-3 mt-6 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
                             onChange={formik.handleChange}
-                            autoComplete="off"
+                            autoComplete="off"                                       
                             onBlur={formik.handleBlur}
                             type="text"
                             name="fName"
                             value={formik.values.fName}
                             placeholder="First name"
-                            className="h-12 rounded-xl border border-gray-300 bg-slate-50 px-3 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15"
                         />
+
+                        {errors.fName && <p className="text-red-500 text-sm absolute top-0 left-0 ">{errors.fName}</p>}
                         <input
                             onChange={formik.handleChange}
                             autoComplete="off"
@@ -53,10 +61,10 @@ const RegistrationForm = () => {
                             name="lName"
                             value={formik.values.lName}
                             placeholder="Last Name"
-                            className="h-12 rounded-xl border border-gray-300 bg-slate-50 px-3 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15"
+                            className={`h-12 rounded-xl border ${errors.lName ? 'border-red-500  mb-3' : 'border-gray-300'} bg-slate-50 px-3 mt-6 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
                         />
+                        {errors.lName && <p className="text-red-500 text-sm absolute top-0 right-[49px] ">{errors.lName}</p>}
                     </div>
-
                     <input
                         onChange={formik.handleChange}
                         autoComplete="off"
@@ -65,9 +73,10 @@ const RegistrationForm = () => {
                         name="email"
                         value={formik.values.email}
                         placeholder="Email "
-                        className="h-12 rounded-xl border border-gray-300 bg-slate-50 px-3 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15"
+                       className={`h-12 rounded-xl border ${errors.email ? 'border-red-500  mb-3' : 'border-gray-300'} bg-slate-50 px-3 mt-6 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
                     />
-
+                    
+                    {errors.email && <p className="text-red-500 text-sm  top-0 left-0 ">{errors.email}</p>}
                     <input
                         onChange={formik.handleChange}
                         autoComplete="off"
@@ -76,8 +85,9 @@ const RegistrationForm = () => {
                         name="password"
                         value={formik.values.password}
                         placeholder="New password"
-                        className="h-12 rounded-xl border border-gray-300 bg-slate-50 px-3 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15"
+                        className={`h-12 rounded-xl border ${errors.password ? 'border-red-500  mb-3' : 'border-gray-300'} bg-slate-50 px-3 mt-6 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
                     />
+                    {errors.password && <p className="text-red-500 text-sm top-0 left-0 ">{errors.password}</p>}
                     {/* <input
                         onChange={formik.handleChange}
                         autoComplete="off"
@@ -89,8 +99,8 @@ const RegistrationForm = () => {
                         className="h-12 rounded-xl border border-gray-300 bg-slate-50 px-3 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15"
                     /> */}
 
-                    <div >
-                        <label className="mb-1.5 block text-xs font-semibold text-slate-500">Date of birth</label>
+                    <div className=" relative mb-2">
+                        <label className=" mb-1.5 block text-xs font-semibold text-slate-500">Date of birth</label>
                         {/* <input
                             type="date"
                             name="dob"
@@ -105,7 +115,7 @@ const RegistrationForm = () => {
                             onChange={formik.handleChange}
                             autoComplete="off"
                             onBlur={formik.handleBlur}
-                            className="h-12 w-[30%] rounded-xl border border-gray-300 bg-slate-50 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15">
+                            className={`h-12 w-[30%] rounded-xl ${errors.bDay ? 'border-red-500' : 'border-gray-300'} bg-slate-50 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}>
                             <option value="">Day</option>
                             <option value="01">1</option>
                             <option value="02">2</option>
@@ -121,8 +131,7 @@ const RegistrationForm = () => {
                             <option value="12">12</option>
                             <option value="13">13</option>
                             <option value="14">14</option>
-                            <option value="15">15</
-                            option>                  
+                            <option value="15">15</option>                  
                             <option value="16">16</option>
                             <option value="17">17</option>
                             <option value="18">18</option>  
@@ -139,14 +148,17 @@ const RegistrationForm = () => {
                             <option value="29">29</option>
                             <option value="30">30</option>
                             <option value="31">31</option>
-                        </select>
-                           <select
+                        </select>    
+                        {errors.bDay && <p className="text-red-500 text-sm  top-18 left-0 absolute ">{errors.bDay}</p>}
+
+                        <select
                             name="bMonth"
                             value={formik.values.bMonth}
                             onChange={formik.handleChange}
                             autoComplete="off"
                             onBlur={formik.handleBlur}
-                            className="h-12 w-[30%] mx-[17px] rounded-xl border border-gray-300 bg-slate-50 px-3 py-3 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15">
+                            className={`h-12 w-[30%] mx-[17px] rounded-xl ${errors.bMonth ? 'border-red-500' : 'border-gray-300'} bg-slate-50 px-3 py-3 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}>
+                        
 
                             <option value="">Month</option>
                             <option value="01">January</option>
@@ -162,14 +174,15 @@ const RegistrationForm = () => {
                             <option value="11">November</option>
                             <option value="12">December</option>
                         </select>
-
+                        
+                        {errors.bMonth && <p className="text-red-500 text-sm  top-18 left-0 ml-[33%]  absolute">{errors.bMonth}</p>}
                         <select
                             name="bYear"
                             value={formik.values.bYear}
                             onChange={formik.handleChange}
                             autoComplete="off"
                             onBlur={formik.handleBlur}
-                            className="h-12 w-[30%] rounded-xl border border-gray-300 bg-slate-50 px-3 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15"
+                            className={`h-12 w-[30%] rounded-xl ${errors.bYear ? 'border-red-500' : 'border-gray-300'} bg-slate-50 px-3 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
                         >
                             <option value="">Year</option>
                             <option value="2023">2023</option>
@@ -202,8 +215,11 @@ const RegistrationForm = () => {
                         </select>
 
                      
+                    {errors.bYear && <p className="text-red-500 text-sm  top-18  left-66 absolute">{errors.bYear}</p>}
                         
                     </div>
+                   
+                    
 
                     <div>
                         <label className="mb-2 block text-xs font-semibold text-slate-500">Gender</label>
