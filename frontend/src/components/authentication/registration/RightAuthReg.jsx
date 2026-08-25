@@ -26,23 +26,22 @@ const RegistrationForm = () => {
             console.log('Form submitted with values:', formik.values); 
         }
     });
-    const {errors}=formik;
-    console.log('====================================');
-    console.log(errors);    
-    console.log('====================================');
+    const {errors, touched}=formik;
+        
+    
 
     return (
         <>
             <section className="z-10 mx-auto w-full max-w-md rounded-2xl border border-gray-300 bg-white p-6 md:p-8 shadow-xl shadow-slate-300/30">
                 <h2 className="text-2xl font-bold tracking-tight text-slate-900">Create Your Account</h2>
-                <p className="mt-1 text-sm text-slate-500">It takes less than a minute.</p>
+                <p className="mt-1 text-sm text-slate-500 ">It takes less than a minute.</p>
                 <div className="mt-5 h-px bg-slate-200" />
 
                 <form className="mt-5 grid gap-4" onSubmit={formik.handleSubmit}>
                     <div className="grid gap-3 sm:grid-cols-2 relative">
                         
                         <input
-                        className={`h-12 rounded-xl border ${errors.fName ? 'border-red-500  mb-3' : 'border-gray-300'} bg-slate-50 px-3 mt-6 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
+                        className={`h-12 rounded-xl border ${errors.fName && touched.fName ? 'border-red-500  mb-3' : 'border-gray-300'} bg-slate-50 px-3 mt-6 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
                             onChange={formik.handleChange}
                             autoComplete="off"                                       
                             onBlur={formik.handleBlur}
@@ -52,7 +51,9 @@ const RegistrationForm = () => {
                             placeholder="First name"
                         />
 
-                        {errors.fName && <p className="text-red-500 text-sm absolute top-0 left-0 ">{errors.fName}</p>}
+                        {errors.fName && touched.fName && (
+                            <p className="text-red-500 text-sm absolute top-0 left-0 ">{errors.fName}</p>
+                        )}
                         <input
                             onChange={formik.handleChange}
                             autoComplete="off"
@@ -61,9 +62,11 @@ const RegistrationForm = () => {
                             name="lName"
                             value={formik.values.lName}
                             placeholder="Last Name"
-                            className={`h-12 rounded-xl border ${errors.lName ? 'border-red-500  mb-3' : 'border-gray-300'} bg-slate-50 px-3 mt-6 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
+                            className={`h-12 rounded-xl border ${errors.lName && touched.lName ? 'border-red-500  mb-3' : 'border-gray-300'} bg-slate-50 px-3 mt-6 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
                         />
-                        {errors.lName && <p className="text-red-500 text-sm absolute top-0 right-[49px] ">{errors.lName}</p>}
+                        {errors.lName && touched.lName && (
+                            <p className="text-red-500 text-sm absolute top-0 right-[49px] ">{errors.lName}</p>
+                        )}
                     </div>
                     <input
                         onChange={formik.handleChange}
@@ -73,10 +76,12 @@ const RegistrationForm = () => {
                         name="email"
                         value={formik.values.email}
                         placeholder="Email "
-                       className={`h-12 rounded-xl border ${errors.email ? 'border-red-500  mb-3' : 'border-gray-300'} bg-slate-50 px-3 mt-6 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
+                       className={`h-12 rounded-xl border ${errors.email && touched.email ? 'border-red-500  mb-3' : 'border-gray-300'} bg-slate-50 px-3 mt-6 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
                     />
                     
-                    {errors.email && <p className="text-red-500 text-sm  top-0 left-0 ">{errors.email}</p>}
+                    {errors.email && touched.email && (
+                        <p className="text-red-500 text-sm  top-0 left-0 ">{errors.email}</p>
+                    )}
                     <input
                         onChange={formik.handleChange}
                         autoComplete="off"
@@ -85,9 +90,11 @@ const RegistrationForm = () => {
                         name="password"
                         value={formik.values.password}
                         placeholder="New password"
-                        className={`h-12 rounded-xl border ${errors.password ? 'border-red-500  mb-3' : 'border-gray-300'} bg-slate-50 px-3 mt-6 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
+                        className={`h-12 rounded-xl border ${errors.password && touched.password ? 'border-red-500  mb-3' : 'border-gray-300'} bg-slate-50 px-3 mt-6 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
                     />
-                    {errors.password && <p className="text-red-500 text-sm top-0 left-0 ">{errors.password}</p>}
+                    {errors.password && touched.password && (
+                        <p className="text-red-500 text-sm top-0 left-0 ">{errors.password}</p>
+                    )}
                     {/* <input
                         onChange={formik.handleChange}
                         autoComplete="off"
@@ -115,7 +122,7 @@ const RegistrationForm = () => {
                             onChange={formik.handleChange}
                             autoComplete="off"
                             onBlur={formik.handleBlur}
-                            className={`h-12 w-[30%] rounded-xl ${errors.bDay ? 'border-red-500' : 'border-gray-300'} bg-slate-50 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}>
+                            className={`h-12 w-[30%] rounded-xl ${errors.bDay && touched.bDay ? 'border-red-500' : 'border-gray-300'} bg-slate-50 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}>
                             <option value="">Day</option>
                             <option value="01">1</option>
                             <option value="02">2</option>
@@ -149,7 +156,9 @@ const RegistrationForm = () => {
                             <option value="30">30</option>
                             <option value="31">31</option>
                         </select>    
-                        {errors.bDay && <p className="text-red-500 text-sm  top-18 left-0 absolute ">{errors.bDay}</p>}
+                        {errors.bDay && touched.bDay && (
+                            <p className="text-red-500 text-sm  top-18 left-0 absolute ">{errors.bDay}</p>
+                        )}
 
                         <select
                             name="bMonth"
@@ -157,7 +166,7 @@ const RegistrationForm = () => {
                             onChange={formik.handleChange}
                             autoComplete="off"
                             onBlur={formik.handleBlur}
-                            className={`h-12 w-[30%] mx-[17px] rounded-xl ${errors.bMonth ? 'border-red-500' : 'border-gray-300'} bg-slate-50 px-3 py-3 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}>
+                            className={`h-12 w-[30%] mx-[17px] rounded-xl ${errors.bMonth && touched.bMonth ? 'border-red-500' : 'border-gray-300'} bg-slate-50 px-3 py-3 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}>
                         
 
                             <option value="">Month</option>
@@ -175,14 +184,16 @@ const RegistrationForm = () => {
                             <option value="12">December</option>
                         </select>
                         
-                        {errors.bMonth && <p className="text-red-500 text-sm  top-18 left-0 ml-[33%]  absolute">{errors.bMonth}</p>}
+                        {errors.bMonth && touched.bMonth && (
+                            <p className="text-red-500 text-sm  top-18 left-0 ml-[33%]  absolute">{errors.bMonth}</p>
+                        )}
                         <select
                             name="bYear"
                             value={formik.values.bYear}
                             onChange={formik.handleChange}
                             autoComplete="off"
                             onBlur={formik.handleBlur}
-                            className={`h-12 w-[30%] rounded-xl ${errors.bYear ? 'border-red-500' : 'border-gray-300'} bg-slate-50 px-3 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
+                            className={`h-12 w-[30%] rounded-xl ${errors.bYear && touched.bYear ? 'border-red-500' : 'border-gray-300'} bg-slate-50 px-3 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
                         >
                             <option value="">Year</option>
                             <option value="2023">2023</option>
@@ -215,7 +226,9 @@ const RegistrationForm = () => {
                         </select>
 
                      
-                    {errors.bYear && <p className="text-red-500 text-sm  top-18  left-66 absolute">{errors.bYear}</p>}
+                    {errors.bYear && touched.bYear && (
+                        <p className="text-red-500 text-sm  top-18  left-66 absolute">{errors.bYear}</p>
+                    )}
                         
                     </div>
                    
@@ -248,6 +261,9 @@ const RegistrationForm = () => {
                                 onBlur={formik.handleBlur}
                                 type="radio" name="gender" value="custom" />
                             </label>
+                            {formik.errors.gender && touched.gender && (
+                                <p className="text-red-500 text-xs">{formik.errors.gender}</p>
+                            )}  
                         </div>
                     </div>
 

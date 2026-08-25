@@ -2,8 +2,14 @@ import { Link } from 'react-router-dom'
 import Container from '../../components/layers/Container'
 import LeftAuthReg from '../../components/authentication/registration/LeftAuthReg'
 import RegistrationForm from '../../components/authentication/registration/RightAuthReg'
+import { Helmet } from 'react-helmet-async'
 const Registration = () => {
   return (
+
+    <>
+      <Helmet>
+        <title>ALAP-Social APP</title>
+      </Helmet>
     <Container className="min-h-screen bg-gradient-to-br from-slate-100 via-slate-100 to-slate-200 px-4 py-10 text-slate-900">
 
       <div className="relative mx-auto grid w-full max-w-6xl items-center gap-8 md:gap-12 lg:min-h-[calc(100vh-80px)] lg:grid-cols-2">
@@ -13,6 +19,10 @@ const Registration = () => {
         <RegistrationForm />
       </div>
     </Container>
+    
+    
+    
+    </>
   )
 }
 

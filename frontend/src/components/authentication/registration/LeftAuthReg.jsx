@@ -8,7 +8,7 @@ const LeftAuthReg = ({title , description}) => {
                   Welcome to ALAP
                 </span>
                 <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-blue-600">ALAP</h1>
-                <p className="mt-4 max-w-xl text-base md:text-lg leading-relaxed text-slate-700">
+                <p className="mt-4 lg:max-w-xl text-base md:text-lg leading-relaxed text-slate-700">
                     Create your account and start sharing ideas, memories, and moments with your people.
                 </p>
             </section>
