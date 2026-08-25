@@ -35,6 +35,9 @@ exports.newUser = async (req, res) => {
             });
         }
 
+
+        
+
         if(!validateName(fName,4,15)){
             return res.status(400).json
             ({
@@ -60,7 +63,7 @@ exports.newUser = async (req, res) => {
     
 
         console.log(crypted);
-        console.log('====================================');
+
         //validate username
         let tempUsername = fName + lName;
 
@@ -79,6 +82,7 @@ exports.newUser = async (req, res) => {
             gender,
             verified
         }).save();
+       
 
         const token = createToken({id:user._id.toString()},'3d');
         const url= `${process.env.BASE_URL}/activate/${token}`;
@@ -167,8 +171,9 @@ exports.loginUser=async (req,res) => {
 
     }catch(err){  
         res.status(404).json({
-            // message: "Error while logging in user",
+             //message: "Error while logging in user",
             error: err.message 
+            
         });
     }
 }

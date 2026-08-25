@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 exports.connectToDB = ()=>{
     mongoose.connect(process.env.MONGODB_URL).then(()=>{
         console.log('====================================');
