@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const api = require('./api');
-const dns = require('node:dns');
-dns.setDefaultResultOrder('ipv4first');
+// const dns = require('node:dns');
+// dns.setDefaultResultOrder('ipv4first');
 
 
 // || '/api/v1'
