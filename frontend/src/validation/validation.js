@@ -10,3 +10,9 @@ export const signUpSchema = Yup.object({
     bYear: Yup.string().required('Year is required'),
     gender: Yup.string().required('Gender is required')
 })
+
+export const loginSchema = Yup.object({
+    email: Yup.string().email('Invalid email address').required('Email is required'),
+    password: Yup.string().min(8).max(25).required('Password is required'),
+    // remember: Yup.boolean()
+})

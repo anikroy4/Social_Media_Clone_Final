@@ -1,4 +1,5 @@
 import './App.css'
+import Home from './pages/home/Index.jsx'
 import Login from './pages/login/Login.jsx'
 import Registration from './pages/registration/index.jsx'
 import { createBrowserRouter,createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
@@ -10,8 +11,9 @@ function App() {
   const router= createBrowserRouter(
     createRoutesFromElements(
       <Route>
-        <Route element={<Registration/>} path='/registration'/>
-        <Route element={<Login/>} path='/'/>
+        <Route path='/' element={<Home/>} />
+        <Route path='/registration' element={<Registration/>} />
+        <Route path='/login' element={<Login/>} />
       </Route>
     )
   )

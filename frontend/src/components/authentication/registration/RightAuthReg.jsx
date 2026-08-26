@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import {useFormik} from 'formik'
+import { useFormik } from 'formik'
 import { signUpSchema } from '../../../validation/validation'
 import DateOfBirth from './DateOfBirth'
 import Gender from './Gender'
@@ -19,13 +19,13 @@ const initialState = {
 }
 
 
-const RegistrationForm = ({toast}) => {
+const RegistrationForm = ({ toast }) => {
     const [ageError, setAgeError] = React.useState("");
-    const [addUser, {isLoading}] = useAddUserMutation ();
+    const [addUser, { isLoading }] = useAddUserMutation();
 
 
-    const registration= async ()=>{
-        const signUpMutation= await addUser({
+    const registration = async () => {
+        const signUpMutation = await addUser({
             fName: formik.values.fName,
             lName: formik.values.lName,
             email: formik.values.email,
@@ -35,23 +35,28 @@ const RegistrationForm = ({toast}) => {
             bDay: formik.values.bDay,
             gender: formik.values.gender
         })
-        if(signUpMutation?.data) {
-        toast.success(signUpMutation?.data?.message, {
-            position: "top-right",
-            autoClose: 3000,  
-            hideProgressBar: true,
-            pauseOnHover: true,
-            draggable: false, 
-            theme: "light",
-        });
-        }
-        else if(signUpMutation?.error) {
-            toast.error(signUpMutation.error?.data?.message,{
+
+
+        if (signUpMutation?.data) {
+            toast.success(signUpMutation?.data?.message, {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: true,
                 pauseOnHover: true,
-                draggable: false, 
+                draggable: false,
+                theme: "light",
+            });
+            setTimeout(() => {
+                navigate('/login');
+            }, 3000);
+        }
+        else if (signUpMutation?.error) {
+            toast.error(signUpMutation.error?.data?.message, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: true,
+                pauseOnHover: true,
+                draggable: false,
                 theme: "light",
             });
         }
@@ -66,17 +71,17 @@ const RegistrationForm = ({toast}) => {
             const currentDate = new Date();
             const pickedDate = new Date(
                 formik.values.bYear,
-                formik.values.bMonth - 1, 
+                formik.values.bMonth - 1,
                 formik.values.bDay
             );
 
-            const adult= new Date(1970+18, 0, 1);
-            const Older= new Date(1970+70, 0, 1);
+            const adult = new Date(1970 + 18, 0, 1);
+            const Older = new Date(1970 + 70, 0, 1);
 
-            if(currentDate-pickedDate<adult){
+            if (currentDate - pickedDate < adult) {
                 return setAgeError("You must be at least 18 years old to register.");
-            }   
-            else if(currentDate-pickedDate>Older){
+            }
+            else if (currentDate - pickedDate > Older) {
                 return setAgeError("You must be at most 70 years old to register.");
             }
             // setAgeError(""); // Clear the age error if the age is valid
@@ -84,28 +89,30 @@ const RegistrationForm = ({toast}) => {
             //     console.log("Form submitted successfully");
             // }
             registration();
-            console.log("Form submitted successfully"); 
+            formik.resetForm();
+            setAgeError(""); // Clear the age error if the age is valid
+            // console.log("Form submitted successfully"); 
         }
     });
 
-    const tempYears=new Date().getFullYear();
-    const years= Array.from(new Array(105),(val, index)=> tempYears- index);
+    const tempYears = new Date().getFullYear();
+    const years = Array.from(new Array(105), (val, index) => tempYears - index);
     // console.log(years)
-    
+
     const months = Array.from(new Array(12), (val, index) => index + 1);
     // console.log(months)
-    
+
     const daysInMonth = () => {
         return new Date(formik.values.bYear, formik.values.bMonth, 0).getDate();
     }
-    const getDates=Array.from(new Array(daysInMonth()), (val, index) => index + 1);
+    const getDates = Array.from(new Array(daysInMonth()), (val, index) => index + 1);
 
     // console.log(getDates);
-    
 
-    const {errors, touched}=formik;
-        
-    
+
+    const { errors, touched } = formik;
+
+
 
     return (
         <>
@@ -116,11 +123,11 @@ const RegistrationForm = ({toast}) => {
 
                 <form className="mt-5 grid gap-4" onSubmit={formik.handleSubmit}>
                     <div className="grid gap-3 sm:grid-cols-2 relative">
-                        
+
                         <input
-                        className={`h-12 rounded-xl border ${errors.fName && touched.fName ? 'border-red-500  mb-3' : 'border-gray-300'} bg-slate-50 px-3 mt-6 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
+                            className={`h-12 rounded-xl border ${errors.fName && touched.fName ? 'border-red-500  mb-3' : 'border-gray-300'} bg-slate-50 px-3 mt-6 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
                             onChange={formik.handleChange}
-                            autoComplete="off"                                       
+                            autoComplete="off"
                             onBlur={formik.handleBlur}
                             type="text"
                             name="fName"
@@ -153,9 +160,9 @@ const RegistrationForm = ({toast}) => {
                         name="email"
                         value={formik.values.email}
                         placeholder="Email "
-                       className={`h-12 rounded-xl border ${errors.email && touched.email ? 'border-red-500  mb-3' : 'border-gray-300'} bg-slate-50 px-3 mt-6 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
+                        className={`h-12 rounded-xl border ${errors.email && touched.email ? 'border-red-500  mb-3' : 'border-gray-300'} bg-slate-50 px-3 mt-6 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15`}
                     />
-                    
+
                     {errors.email && touched.email && (
                         <p className="text-red-500 text-sm  top-0 left-0 ">{errors.email}</p>
                     )}
@@ -183,16 +190,16 @@ const RegistrationForm = ({toast}) => {
                         className="h-12 rounded-xl border border-gray-300 bg-slate-50 px-3 text-sm outline-none transition focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-500/15"
                     /> */}
 
-                   <DateOfBirth formik={formik} errors={errors} touched={touched} ageError={ageError} months={months} years={years} getDates={getDates}/>
-                    
+                    <DateOfBirth formik={formik} errors={errors} touched={touched} ageError={ageError} months={months} years={years} getDates={getDates} />
 
-                   <Gender formik={formik} errors={errors} touched={touched} />
+
+                    <Gender formik={formik} errors={errors} touched={touched} />
 
                     <p className="text-xs leading-relaxed text-slate-500">
                         By clicking Sign Up, you agree to our Terms, Privacy Policy, and Cookies Policy.
                     </p>
 
-                    <button  
+                    <button
                         type="submit"
                         className="mt-1 h-12 w-full rounded-xl bg-blue-600 text-base font-semibold text-white shadow-lg shadow-blue-300/40 transition hover:bg-blue-700"
                     >
@@ -201,7 +208,7 @@ const RegistrationForm = ({toast}) => {
                 </form>
 
                 <div className="mt-6 text-center text-sm text-slate-600">
-                    <Link to="/" className="font-semibold text-blue-600 hover:text-blue-700 hover:underline">
+                    <Link to="/login" className="font-semibold text-blue-600 hover:text-blue-700 hover:underline">
                         Already have an account?
                     </Link>
                 </div>
