@@ -35,9 +35,28 @@ const RegistrationForm = ({toast}) => {
             bDay: formik.values.bDay,
             gender: formik.values.gender
         })
-
-        console.log(signUpMutation?.data);
-        console.log(signUpMutation?.error?.message);
+        if(signUpMutation?.data) {
+        toast.success(signUpMutation?.data?.message, {
+            position: "top-right",
+            autoClose: 3000,  
+            hideProgressBar: true,
+            pauseOnHover: true,
+            draggable: false, 
+            theme: "light",
+        });
+        }
+        else if(signUpMutation?.error) {
+            toast.error(signUpMutation.error?.data?.message,{
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: true,
+                pauseOnHover: true,
+                draggable: false, 
+                theme: "light",
+            });
+        }
+        // console.log(signUpMutation?.data);
+        // console.log(signUpMutation.error?.data?.message);
     }
 
     const formik = useFormik({
