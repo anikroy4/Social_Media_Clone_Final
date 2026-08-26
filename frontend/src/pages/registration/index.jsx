@@ -7,8 +7,6 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 
-
-
 const Registration = () => {
   return (
 
