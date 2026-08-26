@@ -19,6 +19,7 @@ exports.newUser = async (req, res) => {
             gender,
             verified
         } = req.body;
+        
 
 
         if (!validateEmail(email)) {

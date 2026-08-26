@@ -19,7 +19,7 @@ const initialState = {
 }
 
 
-const RegistrationForm = () => {
+const RegistrationForm = ({toast}) => {
     const [ageError, setAgeError] = React.useState("");
     const [addUser, {isLoading}] = useAddUserMutation ();
 
@@ -37,6 +37,7 @@ const RegistrationForm = () => {
         })
 
         console.log(signUpMutation?.data);
+        console.log(signUpMutation?.error?.message);
     }
 
     const formik = useFormik({
@@ -63,6 +64,7 @@ const RegistrationForm = () => {
             // else{
             //     console.log("Form submitted successfully");
             // }
+            registration();
             console.log("Form submitted successfully"); 
         }
     });
