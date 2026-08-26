@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { useFormik } from 'formik'
 import { signUpSchema } from '../../../validation/validation'
@@ -22,8 +22,7 @@ const initialState = {
 const RegistrationForm = ({ toast }) => {
     const [ageError, setAgeError] = React.useState("");
     const [addUser, { isLoading }] = useAddUserMutation();
-
-
+    const navigate = useNavigate();
     const registration = async () => {
         const signUpMutation = await addUser({
             fName: formik.values.fName,

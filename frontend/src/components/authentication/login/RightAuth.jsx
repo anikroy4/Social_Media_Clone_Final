@@ -2,6 +2,8 @@ import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom'
 import { loginSchema } from '../../../validation/validation';
 import { useLoginUserMutation } from '../../../features/api/authApi';
+import { useDispatch } from 'react-redux';
+import { loginUsers } from '../../../features/users/authSlice';
 
 
 const initialState = {
@@ -14,9 +16,7 @@ const initialState = {
 const RightAuth = ({ title, subtitle, toast }) => {
     const [loginUser, {isLoading}] = useLoginUserMutation();
     const navigate = useNavigate();
-
-
-
+    const dispatch = useDispatch();
 
     const loginUserHandler= async() => {
         const loginMutation=await loginUser({
@@ -34,6 +34,10 @@ const RightAuth = ({ title, subtitle, toast }) => {
             });
             return;
         }
+        const {message, ...rest}= loginMutation.data;
+        localStorage.setItem("userInfo", JSON.stringify(rest));
+        dispatch(loginUsers(rest));
+        console.log(message);
         navigate('/');
         // console.log(loginMutation);
         
