@@ -1,6 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import Container from "../../components/layers/Container";
+import LeftPart from "../../components/home_components/leftpart";
 
 const Home = () => {
 
@@ -10,8 +11,10 @@ const Home = () => {
         <title>Home</title>
       </Helmet>
 
-      <div className="grid grid-cols-[1fr_3fr_1fr]">
-        <div>Left</div>
+      <div className="grid grid-cols-[1fr_3fr_1fr] mt-6">
+        <div>
+           <LeftPart />
+        </div>
         <div>Middle</div>
         <div>Right</div>
       </div>
