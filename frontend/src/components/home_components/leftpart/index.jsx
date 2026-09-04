@@ -2,7 +2,6 @@ import React from 'react'
 import LeftProfile from './LeftProfile'
 import LeftHomeData from './LeftHomeData'
 import { LeftData } from './Data'
-import { Friends } from '../../../assets/svg/Friends'
 
 
 const LeftPart = () => {
@@ -11,15 +10,12 @@ const LeftPart = () => {
       <div>
         <LeftProfile />
       </div>
-      <div>
+      <div className='mt-10 w-3/4 mx-auto'>
         {
-          LeftData.map((item, index) => (
-            <div key={index} data={item}>
-              <LeftHomeData />
-            </div>
+          LeftData.map((data, index) => (
+              <LeftHomeData  key={index} data={data} />
           ))
         }
-        <Friends/>
       </div>
 
 

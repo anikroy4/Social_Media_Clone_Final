@@ -1,8 +1,11 @@
 import React from 'react'
+import Header from './header'
 
 const PostPart = () => {
   return (
-    <div>Index</div>
+    <div>
+      <Header />
+    </div>
   )
 }
 
