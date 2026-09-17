@@ -2,7 +2,7 @@ import React from 'react'
 
 const RightPart = () => {
   return (
-    <div>index</div>
+    <div>index of Right part</div>
   )
 }
 

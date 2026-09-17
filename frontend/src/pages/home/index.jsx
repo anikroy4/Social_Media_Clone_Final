@@ -16,7 +16,9 @@ const Home = () => {
         <div>
            <LeftPart />
         </div>
-        <div><PostPart /></div>
+        <div>
+          <PostPart />
+          </div>
         <div>
           <RightPart />
         </div>
