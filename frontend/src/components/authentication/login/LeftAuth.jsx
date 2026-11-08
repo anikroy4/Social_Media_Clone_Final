@@ -16,15 +16,15 @@ const LeftAuth = ({subtitle, title, description, point1, point2, point3 }) => {
                 </p>
                 <div className="grid gap-3 text-gray-700">
                     <div className="flex items-start gap-3">
-                        <span className="mt-2 h-2.5 w-2.5 rounded-full bg-blue-600 flex-shrink-0" />
+                        <span className="mt-2 h-2.5 w-2.5 rounded-full bg-blue-600 shrink-0" />
                         <p>{point1}</p>
                     </div>
                     <div className="flex items-start gap-3">
-                        <span className="mt-2 h-2.5 w-2.5 rounded-full bg-blue-600 flex-shrink-0" />
+                        <span className="mt-2 h-2.5 w-2.5 rounded-full bg-blue-600 shrink-0" />
                         <p>{point2}</p>
                     </div>
                     <div className="flex items-start gap-3">
-                        <span className="mt-2 h-2.5 w-2.5 rounded-full bg-blue-600 flex-shrink-0" />
+                        <span className="mt-2 h-2.5 w-2.5 rounded-full bg-blue-600 shrink-0" />
                         <p>{point3}</p>
                     </div>
                 </div>
